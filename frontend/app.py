@@ -13,6 +13,11 @@ app.secret_key = os.getenv('SECRET_KEY')
 def home():
     return render_template('index.html')
 
+@app.route('/api')
+def api():
+    data = requests.get(f'{BACKEND_URL}/api')
+    return data.json()
+
 @app.route('/submit', methods=['POST'])
 def submit():
     data = dict(request.form)
