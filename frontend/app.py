@@ -1,0 +1,34 @@
+from flask import Flask, render_template, request, flash
+import requests
+import os
+import dotenv
+
+dotenv.load_dotenv()
+BACKEND_URL = 'http://192.168.56.101:9000'
+
+app = Flask(__name__)
+app.secret_key = os.getenv('SECRET_KEY')
+
+@app.route("/")
+def home():
+    return render_template('index.html')
+
+@app.route('/submit', methods=['POST'])
+def submit():
+    data = dict(request.form)
+    print(data)
+    if not data.get('name') or not data.get('email') or not data.get('feedback'):
+        flash("All fields are required. Please fill in all fields.")
+        return render_template('index.html')
+
+    try:
+        response = requests.post(f"{BACKEND_URL}/submit", json=data)
+        response.raise_for_status()
+        return render_template('success.html')
+    
+    except Exception as e:
+        flash(f"something happed: {str(e)}")
+        return render_template('index.html')
+
+if __name__ == "__main__":
+    app.run(debug=True, host='192.168.56.101', port=8000)

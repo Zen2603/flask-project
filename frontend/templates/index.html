@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Flask Application</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            .body {
+                font-family: Arial, sans-serif;
+                background: #1a1a1a;
+                color: #fff;
+                min-height: 100vh;
+                padding: 2rem;
+            }
+
+            .wrapper {
+                max-width: 500px;
+                margin: 0 auto;
+                padding-top: 2rem;
+            }
+
+            .title {
+                text-align: center;
+                margin-bottom: 2rem;
+                color: #fff;
+            }
+
+            .container {
+                background: #2a2a2a;
+                padding: 2rem;
+                border-radius: 8px;
+            }
+
+            .form-item {
+                margin-bottom: 1.5rem;
+            }
+
+            .form-label {
+                display: block;
+                margin-bottom: 0.5rem;
+                color: #ccc;
+            }
+
+            .form-input {
+                width: 100%;
+                padding: 0.75rem;
+                background: #333;
+                border: 1px solid #555;
+                border-radius: 4px;
+                color: #fff;
+                font-size: 1rem;
+            }
+
+            .form-input:focus {
+                outline: none;
+                border-color: #4a90e2;
+            }
+
+            .form-input:-webkit-autofill {
+                -webkit-box-shadow: 0 0 0px 1000px #333 inset;
+                -webkit-text-fill-color: #fff;
+            }
+
+            .form-input:-webkit-autofill:focus {
+                -webkit-box-shadow: 0 0 0px 1000px #333 inset;
+                -webkit-text-fill-color: #fff;
+            }
+
+            .form-textarea {
+                width: 100%;
+                padding: 0.75rem;
+                background: #333;
+                border: 1px solid #555;
+                border-radius: 4px;
+                color: #fff;
+                font-size: 1rem;
+                min-height: 100px;
+                resize: vertical;
+            }
+
+            .form-textarea:focus {
+                outline: none;
+                border-color: #4a90e2;
+            }
+
+            .form-submit {
+                width: 100%;
+                padding: 0.75rem;
+                background: #4a90e2;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                font-size: 1rem;
+                cursor: pointer;
+            }
+
+            .form-submit:hover {
+                background: #357abd;
+            }
+
+            .flash-message {
+                background: #5a2d2d;
+                border: 1px solid #df7272;
+                border-radius: 4px;
+                padding: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .flash-text {
+                color: #df7272;
+                text-align: center;
+                margin: 0;
+            }
+        </style>
+    </head>
+    <body class="body">
+        <div class="wrapper">
+            <h1 class="title">Feedback Form</h1>
+            {% with messages = get_flashed_messages() %} {% if messages %}
+            <div class="flash-message">
+                {% for message in messages %}
+                <p class="flash-text">{{ message }}</p>
+                {% endfor %}
+            </div>
+            {% endif %} {% endwith %}
+            <div class="container">
+                <form action="submit" method="post">
+                    <div class="form-item">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" name="name" id="name" class="form-input" placeholder="Enter Your Name" />
+                    </div>
+                    <div class="form-item">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" name="email" id="email" class="form-input" placeholder="Enter Your Email" />
+                    </div>
+                    <div class="form-item">
+                        <label for="feedback" class="form-label">Give a Feedback</label>
+                        <textarea
+                            name="feedback"
+                            id="feedback"
+                            class="form-textarea"
+                            placeholder="Share your thoughts..."
+                        ></textarea>
+                    </div>
+                    <input type="submit" value="Submit" class="form-submit" />
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
