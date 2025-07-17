@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            .body {
+                font-family: Arial, sans-serif;
+                background: #1a1a1a;
+                color: #fff;
+                min-height: 100vh;
+                padding: 2rem;
+            }
+
+            .wrapper {
+                max-width: 800px;
+                margin: 0 auto;
+                padding-top: 2rem;
+            }
+
+            .title {
+                text-align: center;
+                margin-bottom: 2rem;
+                color: #fff;
+            }
+
+            .container {
+                background: #2a2a2a;
+                padding: 2rem;
+                border-radius: 8px;
+            }
+
+            .flash-message {
+                background: #2d5a2d;
+                border: 1px solid #4a7c4a;
+                border-radius: 4px;
+                padding: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .flash-text {
+                color: #90ee90;
+                text-align: center;
+                margin: 0;
+            }
+
+            .todo-header {
+                display: flex;
+                padding: 1rem;
+                background: #333;
+                border-radius: 4px;
+                margin-bottom: 1rem;
+                font-weight: bold;
+                color: #ccc;
+            }
+
+            .header-name {
+                flex: 1;
+            }
+
+            .header-desc {
+                flex: 2;
+            }
+
+            .added-items-container {
+                margin-bottom: 2rem;
+            }
+
+            .added-item {
+                display: flex;
+                align-items: center;
+                padding: 1rem;
+                background: #333;
+                border-radius: 4px;
+                margin-bottom: 0.5rem;
+            }
+
+            .iscomplete {
+                width: 20px;
+                height: 20px;
+                border: 2px solid #555;
+                border-radius: 4px;
+                margin-right: 1rem;
+                background: #1a1a1a;
+            }
+
+            .item-name {
+                flex: 1;
+                color: #fff;
+            }
+
+            .item-desc {
+                flex: 2;
+                color: #ccc;
+            }
+
+            .no-items {
+                text-align: center;
+                padding: 2rem;
+                color: #ccc;
+            }
+
+            .todo-item {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                padding: 1rem;
+                background: #333;
+                border-radius: 4px;
+            }
+
+            .form-input {
+                padding: 0.5rem;
+                background: #1a1a1a;
+                border: 1px solid #555;
+                border-radius: 4px;
+                color: #fff;
+                font-size: 1rem;
+            }
+
+            .form-input:focus {
+                outline: none;
+                border-color: #4a90e2;
+            }
+
+            .input-name {
+                flex: 1;
+            }
+
+            .input-desc {
+                flex: 2;
+            }
+
+            .form-submit {
+                padding: 0.5rem 1rem;
+                background: #4a90e2;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                font-size: 1rem;
+                cursor: pointer;
+            }
+
+            .form-submit:hover {
+                background: #357abd;
+            }
+        </style>
+    </head>
+    <body class="body">
+        <div class="wrapper">
+            <h1 class="title">To-Do</h1>
+
+            {% with messages = get_flashed_messages() %} {% if messages %}
+            <div class="flash-message">
+                {% for message in messages %}
+                <p class="flash-text">{{ message }}</p>
+                {% endfor %}
+            </div>
+            {% endif %} {% endwith %}
+
+            <div class="container">
+                <div class="todo-header">
+                    <span class="header-name">Item Name</span>
+                    <span class="header-desc">Item Description</span>
+                </div>
+
+                <div class="added-items-container">
+                    {% if items %} {% for item in items %}
+                    <div class="added-item">
+                        <div class="iscomplete false"></div>
+                        <span class="item-name">{{ item.item_name }}</span>
+                        <span class="item-desc">{{ item.item_desc }}</span>
+                    </div>
+                    {% endfor %} {% else %}
+                    <div class="no-items">
+                        <p>No todo items found. Add your first item below!</p>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <form action="submittodoitem" class="todo-item" method="post">
+                    <div class="iscomplete false"></div>
+                    <input
+                        type="text"
+                        name="item_name"
+                        id="item-name"
+                        class="form-input input-name"
+                        placeholder="Enter item name"
+                    />
+                    <input
+                        type="text"
+                        name="item_desc"
+                        id="item-desc"
+                        class="form-input input-desc"
+                        placeholder="Enter item description"
+                    />
+                    <input type="submit" value="Submit" class="form-submit" />
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
