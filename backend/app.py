@@ -35,7 +35,22 @@ def submit():
     except Exception as e:
         return jsonify({"error": "An unexpected error occurred", "details": str(e)}), 500
 
+collection2 = db['todo-data']
 
+@app.route('/submittodoitem', methods=['POST'])
+def submittodoitem():
+    data = request.json
+    print(data)
+    try:
+        collection2.insert_one(data)
+        return "success"
+    except Exception as e:
+        return jsonify({"error" : "An unexpected error occurred", "details": str(e)}), 500
+
+@app.route('/gettodoitems', methods=['POST', 'GET'])
+def gettodoitems():
+    items = list(collection2.find({}, {"_id": 0}))
+    return jsonify(items)
 
 if __name__ == "__main__":
     app.run(debug=True, host='192.168.56.101', port=9000)
