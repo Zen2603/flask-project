@@ -89,6 +89,7 @@
                 border-radius: 4px;
                 margin-right: 1rem;
                 background: #1a1a1a;
+                grid-row: 1/4;
             }
 
             .item-name {
@@ -108,7 +109,8 @@
             }
 
             .todo-item {
-                display: flex;
+                display: grid;
+                grid-template-columns: 30px 1fr 1fr;
                 align-items: center;
                 gap: 1rem;
                 padding: 1rem;
@@ -201,6 +203,9 @@
                         class="form-input input-desc"
                         placeholder="Enter item description"
                     />
+                    <input type="text" name="item_id" class="form-input" placeholder="Item ID" />
+                    <input type="text" name="item_uuid" class="form-input" placeholder="Item UUID" />
+                    <input type="text" name="item_hash" class="form-input" placeholder="Item Hash" />
                     <input type="submit" value="Submit" class="form-submit" />
                 </form>
             </div>
